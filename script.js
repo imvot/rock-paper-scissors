@@ -1,3 +1,7 @@
+const ROCK_EMOJI_URL = "https://twemoji.maxcdn.com/svg/270a.svg"
+const PAPER_EMOJI_URL = "https://twemoji.maxcdn.com/svg/270b.svg"
+const SCISSORS_EMOJI_URL = "https://twemoji.maxcdn.com/svg/270c.svg"
+
 // WHEN user starts the game
 // REPEAT 5x
 	// GET INPUT from player 
@@ -7,14 +11,17 @@
 
 
 // WHEN user starts the game
+/*
 function game() {
 	//REPEAT 5x
 	for(i=0; i<5; i++) {
 		console.log(playRound(getPlayerSelection(), getComputerSelection()))
 	}
 }
+*/
 
 // GET INPUT from player
+/*
 function getPlayerSelection() {
 	let playerSelection = prompt("Rock, Paper or Scissors ?").toLowerCase()
 	switch(playerSelection) {
@@ -27,6 +34,7 @@ function getPlayerSelection() {
 			return getPlayerSelection()
 	}
 }
+*/
 
 function random(start, stop) {
 	stop += start == 0 ? 1 : 0
@@ -40,19 +48,64 @@ function getComputerSelection() {
 }
 
 //COMPARE choices
-function playRound(playerSelection, computerSelection) {
+function compareSelections(playerSelection, computerSelection) {
 	const results = {
 		"rock": {"rock": "tie", "paper": "lose", "scissors": "win"},
 		"paper": {"rock": "win", "paper": "tie", "scissors": "lose"},
 		"scissors": {"rock": "lose", "paper": "win", "scissors": "tie"}
 	};
-	
-	switch(results[playerSelection][computerSelection]) {
-		case "win":
-			return `You win! ${playerSelection} beats ${computerSelection}`
-		case "lose":
-			return `You lose! ${playerSelection} beats ${computerSelection}`
-		case "tie":
-			return "It's a tie!"
-	}
+
+    return results[playerSelection][computerSelection]
 }
+
+function increasePlayerScore() {
+    playerScoreDiv.innerText = ++playerScore;
+}
+
+function changeEmoji(emojiImg, emojiName) {
+    switch(emojiName) {
+        case "rock":
+            emojiImg.src = ROCK_EMOJI_URL;
+            break;
+        case "paper":
+            emojiImg.src = PAPER_EMOJI_URL;
+            break;
+        case "scissors":
+            emojiImg.src = SCISSORS_EMOJI_URL;
+    }
+}
+
+function increaseComputerScore() {
+    computerScoreDiv.innerText = ++computerScore;
+}
+
+function play(playerSelection) {
+    changeEmoji(playerEmojiImg, playerSelection);
+    const computerSelection = getComputerSelection();
+    changeEmoji(computerEmojiImg, computerSelection);
+    const result = compareSelections(playerSelection, computerSelection)
+    if(result == "win") {
+        increasePlayerScore()
+    } else if(result == "lose") {
+        increaseComputerScore()
+    }
+}
+
+const buttons = [...document.querySelectorAll(".choice > button")]
+buttons.forEach(btn => btn.addEventListener(
+    "click", () => play(btn.id)
+))
+const playerScoreDiv = document.querySelector("#player-score");
+const computerScoreDiv = document.querySelector("#computer-score");
+const playerEmojiImg = document.querySelector("#player-emoji");
+const computerEmojiImg = document.querySelector("#computer-emoji");
+let computerScore = 0;
+let playerScore = 0;
+
+
+// Wait for player selection(btn value)
+// Change #player-emoji accordingly
+// Get random computer selection
+// Compare selections
+// Increase score accordingly
+// if score <= 5 announce winner, if not loop over
