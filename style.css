@@ -80,6 +80,38 @@ h1 > .scissors {
     width: 50px;
 }
 
+@keyframes player-handshake {
+    from, to {
+        translate: 0 0;
+    }
+
+    50% {
+        translate: 0 50px;
+        rotate: 30deg
+    }
+}
+
+@keyframes computer-handshake {
+    from, to {
+        translate: 0 0;
+    }
+
+    50% {
+        translate: 0 50px;
+        rotate: -30deg
+    }
+}
+
+.player-handshake {
+    animation: player-handshake 500ms ease;
+    animation-iteration-count: 3;
+}
+
+.computer-handshake {
+    animation: computer-handshake 500ms ease;
+    animation-iteration-count: 3;
+}
+
 #round-result {
     text-align: center;
     font-size: 32px;

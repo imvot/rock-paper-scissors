@@ -1,6 +1,9 @@
 // Wait for player selection(btn value)
 // Change #player-emoji accordingly
 // Get random computer selection
+// Changer #computer-emoji accordingly
+// Animate both emojis
+// Wait for animations to be done
 // Compare selections
 // Increase score accordingly
 // Announce round result accordingly
@@ -101,22 +104,28 @@ function resetGame() {
 }
 
 function play(playerSelection) {
-    changeEmoji(playerEmojiImg, playerSelection);
-    const computerSelection = getComputerSelection();
-    changeEmoji(computerEmojiImg, computerSelection);
-    const result = compareSelections(playerSelection, computerSelection)
-    if(result == "win") {
-        increasePlayerScore()
-    } else if(result == "lose") {
-        increaseComputerScore()
-    } 
-    showRoundResult(result)
-    if(playerScore >= 5) {
-        dialogElement.showModal();
-        modalResultDiv.innerText = "You won !";
-    }
-    if(computerScore >= 5) {
-        dialogElement.showModal();
-        modalResultDiv.innerText = "You lost !";
-    }
+    computerEmojiImg.classList.add("computer-handshake");
+    playerEmojiImg.classList.add("player-handshake");
+    setTimeout(() => {
+        changeEmoji(playerEmojiImg, playerSelection);
+        const computerSelection = getComputerSelection();
+        changeEmoji(computerEmojiImg, computerSelection);
+        const result = compareSelections(playerSelection, computerSelection)
+        if(result == "win") {
+            increasePlayerScore()
+        } else if(result == "lose") {
+            increaseComputerScore()
+        } 
+        showRoundResult(result)
+        if(playerScore >= 5) {
+            dialogElement.showModal();
+            modalResultDiv.innerText = "You won !";
+        }
+        if(computerScore >= 5) {
+            dialogElement.showModal();
+            modalResultDiv.innerText = "You lost !";
+        }
+        computerEmojiImg.classList.remove("computer-handshake");
+        playerEmojiImg.classList.remove("player-handshake");
+    }, 1500);
 }
