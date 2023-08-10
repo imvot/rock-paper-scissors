@@ -98,6 +98,15 @@ function showRoundResult(result) {
     }
 }
 
+function resetGame() {
+    hideRoundResult();
+    playerScore = 0;
+    playerScoreDiv.innerText = 0;
+    computerScore = 0;
+    computerScoreDiv.innerText = 0;
+    dialogElement.close();
+}
+
 function play(playerSelection) {
     changeEmoji(playerEmojiImg, playerSelection);
     const computerSelection = getComputerSelection();
@@ -109,6 +118,14 @@ function play(playerSelection) {
         increaseComputerScore()
     } 
     showRoundResult(result)
+    if(playerScore >= 5) {
+        dialogElement.showModal();
+        modalResultDiv.innerText = "You won !";
+    }
+    if(computerScore >= 5) {
+        dialogElement.showModal();
+        modalResultDiv.innerText = "You lost !";
+    }
 }
 
 const buttons = [...document.querySelectorAll(".choice > button")]
@@ -120,6 +137,10 @@ const computerScoreDiv = document.querySelector("#computer-score");
 const playerEmojiImg = document.querySelector("#player-emoji");
 const computerEmojiImg = document.querySelector("#computer-emoji");
 const roundResultDiv = document.querySelector("#round-result");
+const modalResultDiv = document.querySelector("#modal-result");
+const dialogElement = document.querySelector("dialog");
+const modalCloseBtn = document.querySelector("#modal-close");
+modalCloseBtn.addEventListener("click", resetGame)
 let computerScore = 0;
 let playerScore = 0;
 
