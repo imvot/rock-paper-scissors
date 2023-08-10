@@ -79,6 +79,25 @@ function increaseComputerScore() {
     computerScoreDiv.innerText = ++computerScore;
 }
 
+function hideRoundResult() {
+    roundResultDiv.style.display = "none";
+}
+
+function showRoundResult(result) {
+    roundResultDiv.style.display = "block";
+    switch(result) {
+        case "win":
+            roundResultDiv.innerText = "You won :)";
+            break;
+        case "lose":
+            roundResultDiv.innerText = "You lost :(";
+            break;
+        case "tie":
+            roundResultDiv.innerText = "Tie";
+            break;
+    }
+}
+
 function play(playerSelection) {
     changeEmoji(playerEmojiImg, playerSelection);
     const computerSelection = getComputerSelection();
@@ -88,7 +107,8 @@ function play(playerSelection) {
         increasePlayerScore()
     } else if(result == "lose") {
         increaseComputerScore()
-    }
+    } 
+    showRoundResult(result)
 }
 
 const buttons = [...document.querySelectorAll(".choice > button")]
@@ -99,6 +119,7 @@ const playerScoreDiv = document.querySelector("#player-score");
 const computerScoreDiv = document.querySelector("#computer-score");
 const playerEmojiImg = document.querySelector("#player-emoji");
 const computerEmojiImg = document.querySelector("#computer-emoji");
+const roundResultDiv = document.querySelector("#round-result");
 let computerScore = 0;
 let playerScore = 0;
 
@@ -108,4 +129,5 @@ let playerScore = 0;
 // Get random computer selection
 // Compare selections
 // Increase score accordingly
+// Announce round result accordingly
 // if score <= 5 announce winner, if not loop over
