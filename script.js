@@ -1,40 +1,33 @@
+// Wait for player selection(btn value)
+// Change #player-emoji accordingly
+// Get random computer selection
+// Compare selections
+// Increase score accordingly
+// Announce round result accordingly
+// if score <= 5 announce winner, if not loop over
+
 const ROCK_EMOJI_URL = "https://twemoji.maxcdn.com/svg/270a.svg"
 const PAPER_EMOJI_URL = "https://twemoji.maxcdn.com/svg/270b.svg"
 const SCISSORS_EMOJI_URL = "https://twemoji.maxcdn.com/svg/270c.svg"
 
-// WHEN user starts the game
-// REPEAT 5x
-	// GET INPUT from player 
-	// GET random choice from computer
-	// COMPARE choices
-	// SHOW results
+const buttons = [...document.querySelectorAll(".choice > button")]
+const playerScoreDiv = document.querySelector("#player-score");
+const computerScoreDiv = document.querySelector("#computer-score");
+const playerEmojiImg = document.querySelector("#player-emoji");
+const computerEmojiImg = document.querySelector("#computer-emoji");
+const roundResultDiv = document.querySelector("#round-result");
+const modalResultDiv = document.querySelector("#modal-result");
+const dialogElement = document.querySelector("dialog");
+const modalCloseBtn = document.querySelector("#modal-close");
 
+buttons.forEach(btn => btn.addEventListener(
+    "click", () => play(btn.id)
+))
+modalCloseBtn.addEventListener("click", resetGame)
 
-// WHEN user starts the game
-/*
-function game() {
-	//REPEAT 5x
-	for(i=0; i<5; i++) {
-		console.log(playRound(getPlayerSelection(), getComputerSelection()))
-	}
-}
-*/
+let computerScore = 0;
+let playerScore = 0;
 
-// GET INPUT from player
-/*
-function getPlayerSelection() {
-	let playerSelection = prompt("Rock, Paper or Scissors ?").toLowerCase()
-	switch(playerSelection) {
-		case "rock":
-		case "paper":
-		case "scissors":
-			return playerSelection
-		default:
-			alert("Invalid Choice")
-			return getPlayerSelection()
-	}
-}
-*/
 
 function random(start, stop) {
 	stop += start == 0 ? 1 : 0
@@ -127,28 +120,3 @@ function play(playerSelection) {
         modalResultDiv.innerText = "You lost !";
     }
 }
-
-const buttons = [...document.querySelectorAll(".choice > button")]
-buttons.forEach(btn => btn.addEventListener(
-    "click", () => play(btn.id)
-))
-const playerScoreDiv = document.querySelector("#player-score");
-const computerScoreDiv = document.querySelector("#computer-score");
-const playerEmojiImg = document.querySelector("#player-emoji");
-const computerEmojiImg = document.querySelector("#computer-emoji");
-const roundResultDiv = document.querySelector("#round-result");
-const modalResultDiv = document.querySelector("#modal-result");
-const dialogElement = document.querySelector("dialog");
-const modalCloseBtn = document.querySelector("#modal-close");
-modalCloseBtn.addEventListener("click", resetGame)
-let computerScore = 0;
-let playerScore = 0;
-
-
-// Wait for player selection(btn value)
-// Change #player-emoji accordingly
-// Get random computer selection
-// Compare selections
-// Increase score accordingly
-// Announce round result accordingly
-// if score <= 5 announce winner, if not loop over
