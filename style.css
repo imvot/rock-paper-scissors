@@ -80,6 +80,12 @@ h1 > .scissors {
     width: 50px;
 }
 
+#round-result {
+    text-align: center;
+    font-size: 32px;
+    display: none;
+}
+
 .choice {
     display: flex;
     justify-content: center;
